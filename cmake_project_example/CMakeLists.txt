@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 
 set(PROJECT_NAME cmake_project_example)
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(${PROJECT_NAME})
 add_executable(${PROJECT_NAME} src/main.cpp)
@@ -26,7 +27,9 @@ ExternalProject_Add(
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
     PATCH_COMMAND ""
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${DEP_INSTALL_DIR}
+    CMAKE_ARGS 
+        -DCMAKE_INSTALL_PREFIX=${DEP_INSTALL_DIR}
+        -DCMAKE_CXX_FLAGS="/utf-8"
     TEST_COMMAND ""
 )
 
@@ -38,6 +41,9 @@ set(DEP_LIBS ${DEP_LIBS} spdlog$<$<CONFIG:Debug>:d>)
 target_include_directories(${PROJECT_NAME} PUBLIC ${DEP_INCLUDE_DIR})
 target_link_directories(${PROJECT_NAME} PUBLIC ${DEP_LIB_DIR})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${DEP_LIBS})
+
+# CMAKE_CXX_FLAGS에 /utf-8 플래그 추가
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8")
 
 # Dependency들이 먼저 build 될 수 있게 관계 설정
 add_dependencies(${PROJECT_NAME} ${DEP_LIST})
