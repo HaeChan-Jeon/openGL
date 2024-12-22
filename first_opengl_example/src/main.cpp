@@ -78,6 +78,7 @@ int main(int argc, const char** argv){
 
     SPDLOG_INFO("OpenGL context version: {}", std::string(reinterpret_cast<const char*>(glVersion)));
 
+    OnFramebufferSizeChange(window, WINDOW_WIDTH, WINDOW_HEIGHT);
     glfwSetFramebufferSizeCallback(window, OnFramebufferSizeChange);
     glfwSetKeyCallback(window, OnKeyEvent);
 
