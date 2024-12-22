@@ -2,6 +2,12 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+void OnFramebufferSizeChange(GLFWwindow* window, int width, int height) {
+    SPDLOG_INFO("framebuffer size changed: ({} x {})", width, height);
+    
+    glViewport(0, 0, width, height);
+}
+
 int main(int argc, const char** argv){
     SPDLOG_INFO("Start program");
 
@@ -55,6 +61,8 @@ int main(int argc, const char** argv){
     const GLubyte* glVersion = glGetString(GL_VERSION);
 
     SPDLOG_INFO("OpenGL context version: {}", std::string(reinterpret_cast<const char*>(glVersion)));
+
+    glfwSetFramebufferSizeCallback(window, OnFramebufferSizeChange);
 
     // glfw 루프 실행, 윈도우 close 버튼을 누르면 정상 종료
     SPDLOG_INFO("Start main loop");
