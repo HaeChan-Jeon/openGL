@@ -13,6 +13,19 @@ add_executable(${PROJECT_NAME} src/main.cpp)
 
 include(Dependency.cmake)
 
+# 명시적으로 Python 경로를 설정
+set(Python3_EXECUTABLE "C:/Users/admin/AppData/Local/Programs/Python/Python313/python.exe")
+set(PYTHON_EXECUTABLE ${Python3_EXECUTABLE})
+
+# Python 경로를 확인
+message(STATUS "Using Python executable: ${Python3_EXECUTABLE}")
+
+# Python이 필요한 의존성을 처리
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
+if (NOT Python3_FOUND)
+    message(FATAL_ERROR "Python3 not found. Please check your Python installation.")
+endif()
+
 # cmake -Bbuild . -DCMAKE_BUILD_TYPE=[Debug|Release]
 # cmake --build build --config Debug
 # .\build\Debug\cmake_project_example.exe
