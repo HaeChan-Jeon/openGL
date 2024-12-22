@@ -4,6 +4,10 @@ set(PROJECT_NAME cmake_project_example)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(WINDOW_NAME "Hello, OpenGL!")
+set(WINDOW_WIDTH 960)
+set(WINDOW_HEIGHT 540)
+
 project(${PROJECT_NAME})
 add_executable(${PROJECT_NAME} src/main.cpp)
 
