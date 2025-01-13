@@ -61,17 +61,21 @@ bool Context::Init() {
 
     glClearColor(0.1f, 0.2f, 0.3f, 0.0f);
 
-    auto image = Image::Load("./image/container.jpg");
+    // auto image = Image::Load("./image/container.jpg");
 
-    if (!image) 
-    {
-        return false;
-    }
+    // if (!image) 
+    // {
+    //     return false;
+    // }
 
-    SPDLOG_INFO(
-        "image: {}x{}, {} channels",
-        image->GetWidth(), image->GetHeight(), image->GetChannelCount()
-    );
+    // SPDLOG_INFO(
+    //     "image: {}x{}, {} channels",
+    //     image->GetWidth(), image->GetHeight(), image->GetChannelCount()
+    // );
+
+    auto image = Image::Create(512, 512);
+
+    image->SetCheckImage(16, 16);
 
     m_texture = Texture::CreateFromImage(image.get());
 
