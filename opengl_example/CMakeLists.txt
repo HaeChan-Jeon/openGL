@@ -24,7 +24,8 @@ add_executable(${PROJECT_NAME}
 include(Dependency.cmake)
 
 # 명시적으로 Python 경로를 설정
-set(Python3_EXECUTABLE "C:/Users/admin/AppData/Local/Programs/Python/Python313/python.exe")
+# set(Python3_EXECUTABLE "C:/Users/admin/AppData/Local/Programs/Python/Python313/python.exe")
+set(Python3_EXECUTABLE "C:/Users/geoje/AppData/Local/Programs/Python/Python312/python.exe")
 set(PYTHON_EXECUTABLE ${Python3_EXECUTABLE})
 
 # Python 경로를 확인
