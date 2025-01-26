@@ -94,7 +94,7 @@ bool Context::Init() {
     //     glm::scale(glm::mat4(1.0f), glm::vec3(0.5f)),
     //     glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f)
     //     );
-    auto transform = glm::mat4(1.0f);
+    auto transform = glm::translate(glm::mat4(1.0f), glm::vec3(0.3f, 0.2f, 0.0f));
     auto transformLoc = glGetUniformLocation(m_program->Get(), "transform");
     glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 
