@@ -4,6 +4,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
+
 void OnFramebufferSizeChange(GLFWwindow* window, int width, int height) {
     SPDLOG_INFO("framebuffer size changed: ({} x {})", width, height);
     auto context = reinterpret_cast<Context*>(glfwGetWindowUserPointer(window));
@@ -90,6 +93,13 @@ int main(int argc, const char** argv){
 
     const GLubyte* glVersion = glGetString(GL_VERSION);
 
+	auto imguiContext = ImGui::CreateContext();
+    ImGui::SetCurrentContext(imguiContext);
+    ImGui_ImplGlfw_InitForOpenGL(window, false);
+    ImGui_ImplOpenGL3_Init();
+    ImGui_ImplOpenGL3_CreateFontsTexture();
+    ImGui_ImplOpenGL3_CreateDeviceObjects();
+
     auto context = Context::Create();
 
     if (!context)
@@ -119,13 +129,24 @@ int main(int argc, const char** argv){
 
         context->ProcessInput(window);
 
+	    ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
         context -> Render();
+
+	    ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(window);
     }
 
     //context = nullptr;
     context.reset();
+
+    ImGui_ImplOpenGL3_DestroyFontsTexture();
+    ImGui_ImplOpenGL3_DestroyDeviceObjects();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext(imguiContext);
 
     glfwTerminate();
 
