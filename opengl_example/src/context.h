@@ -22,6 +22,7 @@ private:
     Context() {}
     bool Init();
     ProgramUPtr m_program;
+    ProgramUPtr m_simpleProgram;
 
     VertexLayoutUPtr m_vertexLayout;
 
