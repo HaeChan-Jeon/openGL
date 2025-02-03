@@ -161,6 +161,7 @@ bool Context::Init() {
 
     m_texture2 = Texture::CreateFromImage(image2.get());
 
+    m_material.diffuse = Texture::CreateFromImage(Image::Load("./image/container2.png").get());
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_texture->Get());
@@ -205,8 +206,6 @@ void Context::Render() {
         
         if (ImGui::CollapsingHeader("material", ImGuiTreeNodeFlags_DefaultOpen))
         {
-            ImGui::ColorEdit3("m.ambient", glm::value_ptr(m_material.ambient));
-            ImGui::ColorEdit3("m.diffuse", glm::value_ptr(m_material.diffuse));
             ImGui::ColorEdit3("m.specular", glm::value_ptr(m_material.specular));
             ImGui::DragFloat("m.shininess", &m_material.shininess, 1.0f, 1.0f, 256.0f);
         }
@@ -258,10 +257,12 @@ void Context::Render() {
     m_program->SetUniform("light.ambient", m_light.ambient);
     m_program->SetUniform("light.diffuse", m_light.diffuse);
     m_program->SetUniform("light.specular", m_light.specular);
-    m_program->SetUniform("material.ambient", m_material.ambient);
-    m_program->SetUniform("material.diffuse", m_material.diffuse);
+    m_program->SetUniform("material.diffuse", 0);
     m_program->SetUniform("material.specular", m_material.specular);
     m_program->SetUniform("material.shininess", m_material.shininess);
+
+    glActiveTexture(GL_TEXTURE0);
+    m_material.diffuse->Bind();
 
     for (size_t i = 0; i < cubePositions.size(); i++){
         auto& pos = cubePositions[i];
