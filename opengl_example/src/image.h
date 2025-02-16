@@ -7,7 +7,7 @@ CLASS_PTR(Image)
 
 class Image {
 public:
-    static ImageUPtr Load(const std::string& filepath);
+    static ImageUPtr Load(const std::string& filepath, bool flipVertical = true);
 
     static ImageUPtr Create(int width, int height, int channelCount = 4);
 
@@ -27,7 +27,7 @@ public:
 private:
     Image() {};
 
-    bool LoadWithStb(const std::string& filepath);
+    bool LoadWithStb(const std::string& filepath, bool flipVertical);
 
     bool Allocate(int width, int height, int channelCount);
 
